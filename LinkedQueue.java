@@ -1,34 +1,85 @@
 package org.harsha;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 public class LinkedQueue<T> {
-    private Queue<T> queue = new LinkedList<>();
 
 
-    public void enqueue(T data) {           // adding queue to ata
-        queue.add(data);
+    private static class Node<T> {
+        T data;
+        Node<T> next;
+
+        Node(T data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    private Node<T> front;
+    private Node<T> rear;
+
+
+    public LinkedQueue() {
+        front = null;
+        rear = null;
+    }
+
+
+    public void enqueue(T data) {
+        Node<T> newNode = new Node<>(data);
+
+        if (rear != null) {
+            rear.next = newNode;
+        }
+
+        rear = newNode;
+
+        if (front == null) {
+            front = newNode;
+        }
     }
 
     public T dequeue() {
-        if (queue.isEmpty()) {
+        if (isEmpty()) {
             System.out.println("Queue is empty");
             return null;
         }
-        return queue.poll();
+
+        T value = front.data;
+        front = front.next;
+
+        if (front == null) {
+            rear = null;
+        }
+
+        return value;
     }
+
 
     public T peek() {
-        if (queue.isEmpty()) {
+        if (isEmpty()) {
             System.out.println("Queue is empty");
             return null;
         }
-        return queue.peek();
+
+        return front.data;
     }
 
 
-    public boolean isEmpty() { // checing where empty
-        return queue.isEmpty();
+    public boolean isEmpty() {
+        return front == null;
+    }
+
+    public void printQueue() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty");
+            return;
+        }
+
+        Node<T> current = front;
+        System.out.print("Queue: ");
+        while (current != null) {
+            System.out.print(current.data + " ");
+            current = current.next;
+        }
+        System.out.println();
     }
 }
