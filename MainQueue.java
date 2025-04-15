@@ -1,21 +1,17 @@
 package org.harsha;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
-public class MainQueue {
+public class Main {
     public static void main(String[] args) {
-        // Storing  (int, float, double as Number)
-        Queue<Number> queue = new LinkedList<>();
+        LinkedQueue<Integer> queue = new LinkedQueue<>();
 
-        // Enqueue
-        queue.add(10);
-        queue.add(15.5f);
-        queue.add(20.25);
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
 
-        // Dequeue / Peek
-        System.out.println("Dequeued: " + queue.poll());
+        queue.printQueue();
+
         System.out.println("Peek: " + queue.peek());
-        System.out.println("Dequeued: " + queue.poll());
+        System.out.println("Dequeue: " + queue.dequeue());
+        queue.printQueue();
     }
 }
