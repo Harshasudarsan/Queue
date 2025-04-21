@@ -1,21 +1,22 @@
 package org.harsha;
 
-public class ArrayQueue {
-    private int[] queue;
+public class ArrayQueue<T> {
+    private T[] queue;
     private int front;
     private int rear;
     private int capacity;
     private int size;
 
+    @SuppressWarnings("unchecked")
     public ArrayQueue(int capacity) {
         this.capacity = capacity;
-        this.queue = new int[capacity];
+        this.queue = (T[]) new Object[capacity]; // Generic array creation
         this.front = 0;
         this.rear = -1;
         this.size = 0;
     }
 
-    public void enqueue(int data) {
+    public void enqueue(T data) {
         if (isFull()) {
             System.out.println("Queue is full");
             return;
@@ -26,22 +27,22 @@ public class ArrayQueue {
         size++;
     }
 
-    public int dequeue() {
+    public T dequeue() {
         if (isEmpty()) {
             System.out.println("Queue is empty");
-            return -1;
+            return null;
         }
 
-        int data = queue[front];
+        T data = queue[front];
         front = (front + 1) % capacity;
         size--;
         return data;
     }
 
-    public int peek() {
+    public T peek() {
         if (isEmpty()) {
             System.out.println("Queue is empty");
-            return -1;
+            return null;
         }
 
         return queue[front];
@@ -55,7 +56,6 @@ public class ArrayQueue {
         return size == capacity;
     }
 
-
     public void printQueue() {
         if (isEmpty()) {
             System.out.println("Queue is empty");
@@ -68,6 +68,5 @@ public class ArrayQueue {
             System.out.print(queue[index] + " ");
         }
         System.out.println();
-
     }
 }
