@@ -1,6 +1,9 @@
 package org.harsha;
 
-public class ArrayQueue<T> {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class ArrayQueue<T> implements Iterable<T> {
     private T[] queue;
     private int front;
     private int rear;
@@ -10,7 +13,7 @@ public class ArrayQueue<T> {
     @SuppressWarnings("unchecked")
     public ArrayQueue(int capacity) {
         this.capacity = capacity;
-        this.queue = (T[]) new Object[capacity]; // Generic array creation
+        this.queue = (T[]) new Object[capacity];
         this.front = 0;
         this.rear = -1;
         this.size = 0;
@@ -63,10 +66,33 @@ public class ArrayQueue<T> {
         }
 
         System.out.print("Queue: ");
-        for (int i = 0; i < size; i++) {
-            int index = (front + i) % capacity;
-            System.out.print(queue[index] + " ");
+        for (T item : this) {
+            System.out.print(item + " ");
         }
         System.out.println();
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            private int index = front;
+            private int count = 0;
+
+            @Override
+            public boolean hasNext() {
+                return count < size;
+            }
+
+            @Override
+            public T next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                T data = queue[index];
+                index = (index + 1) % capacity;
+                count++;
+                return data;
+            }
+        };
     }
 }
