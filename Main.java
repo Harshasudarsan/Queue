@@ -2,24 +2,35 @@ package org.harsha;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayQueue queue = new ArrayQueue(5);
 
-        queue.enqueue(10);
-        queue.enqueue(15);
-        queue.enqueue(20);
-        queue.enqueue(25);
+        ArrayQueue<Integer> intQueue = new ArrayQueue<>(4);
+        intQueue.enqueue(10);
+        intQueue.enqueue(20);
+        intQueue.enqueue(30);
 
-        System.out.println("Initial queue:");
-        queue.printQueue();
+        System.out.println("Integer Queue:");
+        intQueue.printQueue();
 
-        System.out.println("\nDequeuing process:");
-
-        while (!queue.isEmpty()) {
-            int removed = queue.dequeue();
-            System.out.println("Dequeued: " + removed);
-            queue.printQueue();
+        while (!intQueue.isEmpty()) {
+            Integer removed = intQueue.dequeue();
+            System.out.println("Dequeued (int): " + removed);
+            intQueue.printQueue();
         }
+        
+        System.out.println();
 
-        System.out.println("\nQueue is now empty.");
+        ArrayQueue<String> stringQueue = new ArrayQueue<>(4);
+        stringQueue.enqueue("ONE");
+        stringQueue.enqueue("TWO");
+        stringQueue.enqueue("THREE");
+
+        System.out.println("String Queue:");
+        stringQueue.printQueue();
+
+        while (!stringQueue.isEmpty()) {
+            String removed = stringQueue.dequeue();
+            System.out.println("Dequeued (string): " + removed);
+            stringQueue.printQueue();
+        }
     }
 }
